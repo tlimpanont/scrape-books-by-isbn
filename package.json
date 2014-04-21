@@ -1,0 +1,19 @@
+{
+  "name": "scrape_studieboeken.nl",
+  "version": "0.0.0",
+  "description": "",
+  "main": "glob-test.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.0.0",
+    "glob": "^3.2.9",
+    "async": "^0.7.0",
+    "gulp": "^3.6.1",
+    "gulp-nodemon": "^1.0.2"
+  }
+}
