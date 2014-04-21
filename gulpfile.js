@@ -2,6 +2,7 @@ var spawn = require('child_process').spawn;
 var gulp = require('gulp');
 var nodemon = require('gulp-nodemon');
 var glob = require("glob");
+var shell = require('gulp-shell');
 
 gulp.task('test', function() {
 
@@ -27,3 +28,13 @@ gulp.task('watch', function() {
 
 // // The default task (called when you run `gulp` from cli)
 gulp.task('casperjs:test', ['test', 'watch']);
+
+gulp.task('deploy:vps', function () {
+    return gulp.src('')
+    .pipe(shell([
+        'ssh root@37.46.136.167 "cd ~/../../var/www/; rm -rf scrape; mkdir scrape"',
+        'sudo scp -r $PWD/* root@37.46.136.167:~/../../var/www/scrape',
+        'forever restartall'
+        'echo Your build has been succesfully deployed!'
+    ]));
+});

@@ -5,6 +5,7 @@ var async = require('async');
 var glob = require("glob");
 
 
+
 var server = app.listen(3000, function() {
 	console.log('Listening on port %d', server.address().port);
 });
@@ -22,10 +23,11 @@ Factory.parallelForScraping = function(files, req) {
             
             child.stdout.on('data', function (data) {
                 var json = JSON.stringify(data.toString().slice(0, -1));
+                var data = JSON.parse(data.toString());
                 
                 callback(null, {
                     website: website,
-                    data: JSON.parse(data.toString())
+                    data: data
                 })
             });   
         });
@@ -38,7 +40,9 @@ app.get('/books/:ISBN', function(req, res){
     glob("websites/**/scrape.js", null, function (er, files) {
         async.parallel(Factory.parallelForScraping(files, req),
         function(err, results){
+            res.header("Content-Type", "application/json; charset=utf-8");
             res.send(results);
+            res.end();
         });
     });
 });

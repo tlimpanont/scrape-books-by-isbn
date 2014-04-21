@@ -6,9 +6,14 @@ scraper.searchBook('#SearchProductsControl1_TextBoxSearch', '#SearchProductsCont
 
 scraper.casper.then(function() {
 	var output = {
+		 url: scraper.getBookUrl(),
          title: scraper.getBookTitle('.DetailHeaderRightTopInfoLeft h1'),
-         price: scraper.getBookPrice('.Prize'),
-         image: scraper.getBookImage('#MainContent_ImageMain')
+         price: {
+         	new: scraper.getBookNewPrice('.Prize'),
+         	second: scraper.getBookSecondPrice('#TabUsedProducts .DetailOffersPrize p span')
+         },
+         image: scraper.getBookImage('#MainContent_ImageMain'),
+         description: scraper.getDescription("#DivDescription")
     };
     this.echo(JSON.stringify(output));
 });

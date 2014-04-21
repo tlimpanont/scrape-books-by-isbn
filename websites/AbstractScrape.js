@@ -17,14 +17,28 @@ var Scraper = function(casper, url, ISBN) {
 		.replace(/(\r\n|\n|\r)/gm, '').trim();
 	}
 
-	this.getBookPrice = function(element) {
+	this.getBookNewPrice = function(element) {
 		return this.casper.fetchText(element)
 		.replace(/(\r\n|\n|\r)/gm, '').trim();
+	}
+
+	this.getBookSecondPrice = function(element) {
+		var price = this.casper.fetchText(element)
+		.replace(/(\r\n|\n|\r)/gm, '').trim();
+		return (price === '') ? null : price;
 	}
 
 	this.getBookImage = function(element) {
 		return this.casper.getElementAttribute(element, 'src')
 		.replace(/(\r\n|\n|\r)/gm, '').trim();
+	}
+
+	this.getBookUrl = function() {
+		return this.casper.getCurrentUrl();
+	}
+
+	this.getDescription = function(element) {
+		return this.casper.getHTML(element).trim();
 	}
 };
 
